@@ -1,0 +1,26 @@
+{
+    "name": "keypath-resolve",
+    "version": "1.1.0",
+    "description": "Resolve Object keyPaths, to its value (or final property context oject). Allows local scope context resolution, and complex keypaths",
+    "main": "./src/keypath-resolve.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/colxi/keypath-resolve.git"
+    },
+    "keywords": [
+        "resolve",
+        "keypath",
+        "resolve-keypath",
+        "resolve keypath",
+        "keypath resolver",
+        "key path resolve"
+    ],
+    "author": "colxi",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/colxi/keypath-resolve/issues"
+    },
+    "homepage": "https://github.com/colxi/keypath-resolve#readme"}
