@@ -2,7 +2,7 @@
 * @Author: colxi  (colxi.kl@gmail.com)
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-09 18:27:59
+* @Last Modified time: 2018-08-09 19:02:52
 * @Webpage: https://www.npmjs.com/package/keypath-resolve
 *
 * resolveKeyPath() :  Resolves a string representation of an object key path,
@@ -10,7 +10,7 @@
 *                     context, or  pervorms a local resolution if constructed
 *                     using he local resolver form.
 */
-
+'use strict';
 
 (function(){
     // Configuration
