@@ -2,7 +2,7 @@
 * @Author: colxi  (colxi.kl@gmail.com)
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-09 13:15:53
+* @Last Modified time: 2018-08-09 18:27:59
 * @Webpage: https://www.npmjs.com/package/keypath-resolve
 *
 * resolveKeyPath() :  Resolves a string representation of an object key path,
@@ -133,10 +133,10 @@
      * This 'constructor' will return a method capable of resolving keyPaths
      * from the local private scope where the evaluation is executed.
      *
-     * @param  keyPath          Stringn or array of strings
+     * @param  keyPath          String or array of strings
      *
-     * @param  scopeContext     Object tonuse as scope context. If omited, global
-     *                          scopemis used instead. If this parameter is set
+     * @param  scopeContext     Object t onuse as scope context. If omited, global
+     *                          scope is used instead. If this parameter is set
      *                          to true or false, will behave as 'resolveValue'
      *                          and scopeContext will be th global scope.
      *                          When executed as a local resolver, if omited,

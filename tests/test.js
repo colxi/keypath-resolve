@@ -2,10 +2,10 @@
 * @Author: colxi
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-09 16:03:42
+* @Last Modified time: 2018-08-09 16:30:04
 */
 'use strict'
-const resolveKeyPath = require ('./main.js')
+const resolveKeyPath = require ('../src/keypath-resolve.js')
 const resolveLocalKeyPath = eval( resolveKeyPath.localScope );
 
 let a={
