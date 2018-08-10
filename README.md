@@ -20,8 +20,8 @@ It can return also a on-step-to-resolution Object (final property Object context
 - Extremely fast : >100,000 keypath resolutions/second
 - Wide platform support : 
   - Node 
-  - Chrome 45+
-  - Firefox 40+
+  - Chrome 49+
+  - Firefox 47+
   - Edge
   - Opera
   - Safari 5.1+
