@@ -33,6 +33,7 @@ It can return also a on-step-to-resolution Object (final property Object context
 
 Two syntax forms are allowed:
 > **resolveKeypath( keyPath  [,contextObject] [,resolveValue] )**
+
 > **resolveKeypath( keyPath  [,resolveValue] )**
 
 - **`keyPath`**: String (or Array of strings) representing the keyPath to resolve.
