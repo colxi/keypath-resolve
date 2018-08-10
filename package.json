@@ -1,6 +1,6 @@
 {
     "name": "keypath-resolve",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Resolve Object keyPaths, to its value (or final property context oject). Allows local scope context resolution, and complex keypaths",
     "main": "./src/keypath-resolve.js",
     "scripts": {
@@ -23,4 +23,5 @@
     "bugs": {
         "url": "https://github.com/colxi/keypath-resolve/issues"
     },
-    "homepage": "https://github.com/colxi/keypath-resolve#readme"}
+    "homepage": "https://github.com/colxi/keypath-resolve#readme"
+}
