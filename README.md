@@ -29,7 +29,7 @@ It can return also a on-step-to-resolution Object (final property Object context
 
 ## Syntax
 
-###-- resolveKeyPath()
+### - Syntax of resolveKeyPath()
 
 Two syntax forms are allowed:
 > **resolveKeypath( keyPath  [,contextObject] [,resolveValue] )**
@@ -43,7 +43,7 @@ Two syntax forms are allowed:
 **Returns** : Resolved value or resolution context (when `resolveValue=false`)
 
 
-### -- Object.prototype.resolveKeyPath() 
+### - Syntax of Object.prototype.resolveKeyPath() 
 
 > **Object.prtotype.resolveKeypath( keyPath  [,resolveValue] )**
 
@@ -51,7 +51,7 @@ Same syntax as resolveKeyPath(), except it doesn't need the `contexObject`parame
 
 
 
-### -- resolveLocalKeyPath "Constructor"
+### - Syntax of resolveLocalKeyPath "Constructor"
 
 This Experimental "Constructor" returns a method, capable of resolving keypaths in the private local scope ( scpe where the `Eval` was executed )
 
