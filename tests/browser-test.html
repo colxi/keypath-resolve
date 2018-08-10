@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test for keypath-resolve</title>
+    <script src='https://cdn.jsdelivr.net/gh/colxi/keypath-resolve@latest/src/keypath-resolve.min.js'></script>
+</head>
+<body>
+<script>
+    let myObj={
+        myNested: ['foo']
+    }
+
+    window.addEventListener('load', function() {
+      console.log( resolveKeyPath('myNested[0]', myObj ) );
+      // console prints: 'foo'
+    }, true);
+</script>
+</body>
+</html>
