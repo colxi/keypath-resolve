@@ -1,14 +1,20 @@
 ![logo](https://cdn.rawgit.com/colxi/keypath-resolve/f6782ad8/logo.png)
 
-# keypath-resolve
+# Keypath-resolve
 [![NoDependencies](https://img.shields.io/badge/dependencies-none-green.svg)](https://github.com/colxi/midi-parser-js)
 [![Browser](https://img.shields.io/badge/browser-compatible-blue.svg)](https://github.com/colxi/midi-parser-js)
 [![Node](https://img.shields.io/badge/node-compatible-brightgreen.svg)](https://www.npmjs.com/package/midi-parser-js)
 
-Tiny and flexible library ( 1Kb gziped, 3Kb minified), for **safe**  evaluation (**no is eval used internally**) and resolution of Keypaths, formated using  dot and bracket notation (eg. `myObj.myProperty.myNestedArray[3].deepProperty`).
+Tiny and flexible library ( 1Kb gziped, 3Kb minified), for **safe**  resolution of Keypaths, formated using  dot and bracket notation. (**no is eval used internally**)
+
+```javascript
+  // example
+  Keypath.resolve( targeObj , 'myProperty.myNestedArray[3].deepProperty')
+```
 
 
-The API also provides methods for common keypath operations :
+
+The library API provides methods for common keypath operations :
 - Keypath.resolve()
 - Keypath.create()
 - Keypath.assign()
@@ -96,7 +102,7 @@ Tries to resolve the provided keypath, if succeeds returns true, if fails return
 - **`keyPath`**: String representing the keyPath to create.
 
 ```javascript
-	const myObj = {
+    const myObj = {
     	myProp : [111,222,333,444]
     }
     Keypath.exist(myObj, 'myProp[2]' );   
@@ -112,7 +118,7 @@ Resolves the provided keypath and returns an object containing the context of th
 - **`keyPath`**: String representing the keyPath to create.
 
 ```javascript
-	const myObj = {
+    const myObj = {
     	myNested:  {
         	first: 'foo',
             second : 'bar'
@@ -125,6 +131,24 @@ Resolves the provided keypath and returns an object containing the context of th
 
 
 ---
+
+### Global Context
+
+When the context object is omited, in any of the API methods calls, the resolution will be performed searching in the global object (window/global).
+
+
+
+```javascript
+    global.myObj = {
+        myArray : [ 
+            {
+                myProp : 'foo'
+            }
+        ]
+    }
+    Keypath.resolve('myObj.myArray[0].myProp');   
+    // returns 'foo'
+```
 
 ## Package distribution :
 
