@@ -43,7 +43,7 @@ Resolves the value of the provided keypath . If the keypath does not exist in th
 
 ```javascript
     const myObj = {
-		myArray : [ 
+        myArray : [ 
             {
                 myProp : 'foo'
             }
@@ -63,7 +63,7 @@ Creates the provided keypath structure, as a sequence of objects or arrays, acco
 
 
 ```javascript
-	const myObj = {}
+    const myObj = {}
     Keypath.create(myObj, 'myNested["myProp');   
     // creates the following object structure :
     // myObj.myNested.myProp , and sets the last property
@@ -80,7 +80,7 @@ Resolves the provided keypath and assignsto it the provided value. If the keypat
 - **`value`** : Value to set to the keypath resolution item
 
 ```javascript
-	const myObj = {
+    const myObj = {
     	myProp : undefined
     }
     Keypath.assign(myObj, 'myProp', 'foo');   
