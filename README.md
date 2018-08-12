@@ -42,10 +42,14 @@ Resolves the value of the provided keypath . If the keypath does not exist in th
 
 
 ```javascript
-	const myObj = {
-		myProp : [ 'foo', 'bar']
+    const myObj = {
+		myArray : [ 
+            {
+                myProp : 'foo'
+            }
+        ]
     }
-    Keypath.resolve(myObj, 'myProp[0]');   
+    Keypath.resolve(myObj, 'myArray[0].myProp');   
     // returns 'foo'
 ```
 
@@ -60,7 +64,7 @@ Creates the provided keypath structure, as a sequence of objects or arrays, acco
 
 ```javascript
 	const myObj = {}
-    Keypath.create(myObj, 'myNested.myProp');   
+    Keypath.create(myObj, 'myNested["myProp');   
     // creates the following object structure :
     // myObj.myNested.myProp , and sets the last property
     // value to undefined. Returns undefined
