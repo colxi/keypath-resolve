@@ -1,6 +1,6 @@
 {
     "name": "keypath-resolve",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "description": "Tiny library (1Kb) to resolve and manipulate keyPaths. Allows dot and bracket notation.",
     "main": "./src/keypath-resolve.js",
     "scripts": {
@@ -22,7 +22,6 @@
         "keypath assign",
         "keypath create",
         "keypath manipulation"
-
     ],
     "author": "colxi",
     "license": "MIT",
