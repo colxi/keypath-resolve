@@ -2,7 +2,7 @@
 * @Author: colxi  (colxi.kl@gmail.com)
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-11 22:55:08
+* @Last Modified time: 2018-08-12 10:15:49
 * @Webpage: https://www.npmjs.com/package/keypath-resolve
 *
 * keypath() :  Resolves a string representation of an object key path,
@@ -118,7 +118,7 @@
 
     /**
      *
-     * keypath() : Resolves Object and arrays keypaths.
+     * keypath() : Resolves and manioulate Object and arrays keypaths.
      * This method will start the resolution in the provided context object, or
      * if not present, in the global scope.
      *
@@ -130,14 +130,13 @@
      * @param  kp               String representing keypath
      *
      * @param  config           Object (optional)
-     *          - getContext    If true, returns the value of the resolution. If
-     *                          setmt false, returns the context of the resulting
-     *                          resolution, and the name of the property to
-     *                          resolve. (default true)
+     *          - action        Accepts : resolve, assign, create, exist and
+     *                          resolveContext.
+     *          - assignValue   Required when action='assign'
      *
      * @return                  Resolved value, or object, with resolved context
-     *                          and property name. config can determine the
-     *                          type of return
+     *                          and property name. Config action changes the
+     *                          type of return.
      *
      */
     const Keypath = function( context , kp, config ){

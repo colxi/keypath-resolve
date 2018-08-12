@@ -11,7 +11,7 @@
         }
 
         window.addEventListener('load', function() {
-            var result = resolveKeyPath('myNested[0]', myObj ) ;
+            var result = Keypath.resolve('myNested[0]', myObj ) ;
             console.log( result );
             document.write( result )
             // console prints: 'foo'
