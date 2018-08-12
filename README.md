@@ -9,7 +9,7 @@ Tiny and flexible library ( 1Kb gziped, 3Kb minified), for **safe** (any form  o
 
 ```javascript
   // simple resolution example
-  Keypath.resolve( targeObj , 'myProperty.myNestedArray[3]["deepProperty"] )
+  Keypath.resolve( targeObj , 'myProperty.myNestedArray[3]["deepProperty"]' )
 ```
 
 
@@ -185,7 +185,7 @@ Available in Github :
 
 ## Changelog
 
-v2.2.0 Added Keypath.toArray and improved documentation
+v2.1.1 Added Keypath.toArray and improved documentation
 
 v2.0.0 Major changes 
 
