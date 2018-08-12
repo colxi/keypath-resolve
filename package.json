@@ -19,7 +19,7 @@
         "key path resolve"
     ],
     "author": "colxi",
-    "license": "GPL-3.0",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/colxi/keypath-resolve/issues"
     },

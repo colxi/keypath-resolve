@@ -2,11 +2,10 @@
 * @Author: colxi
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-09 16:30:04
+* @Last Modified time: 2018-08-11 22:39:01
 */
 'use strict'
-const resolveKeyPath = require ('../src/keypath-resolve.js')
-const resolveLocalKeyPath = eval( resolveKeyPath.localScope );
+const Keypath= require ('../src/keypath-resolve.js');
 
 let a={
     b:{
@@ -37,7 +36,8 @@ global.b={
         {
             f : 444
         }
-    ]
+    ],
+    f: undefined
 }
 
 
@@ -53,167 +53,99 @@ const result=function(r){
 
 console.clear()
 
-//console.log(resolveKeyPath( 'b.c.d' ))
+//console.log.keypath( 'b.c.d' ))
 //process.exit()
 
 
-console.log(' ')
-console.log(' ')
-console.log('*** STARTING TEST ***')
-console.log(' ')
-
-console.log('TESTED OBJECTS')
-console.log('--------------------------------------------------------------------------')
-console.log(' ')
-console.log('let a    = ',a)
-console.log('global.b = ',b)
-console.log(' ')
-console.log('--------------------------------------------------------------------------')
-
-console.log(' ')
-console.log(' ')
-
-
-console.log('TEST : RESOLVER')
-console.log('--------------------------------------------------------------------------')
-
-try{
-    resolveKeyPath('a');
-    console.log( "resolveKeyPath('a') ...",  result(false) );
-}catch(e){ console.log( "resolveKeyPath('a') ...", result( true ), '(Non Resolvable)' ) };
-try{
-    resolveKeyPath('a.b.c') ;
-    console.log( "resolveKeyPath('a.b.c') ...",  result(false) );
-}catch(e){ console.log( "resolveKeyPath('a.b.c') ...", result( true ), '(Non Resolvable)' ) };
-console.log( "resolveKeyPath('b.c', a) ..." , result( resolveKeyPath('b.c', a) === a.b.c ) );
-
-console.log( "resolveKeyPath('b') ...", result( resolveKeyPath('b')  === b ) );
-console.log( "resolveKeyPath('b.c.d') ..." ,  result( resolveKeyPath('b.c.d')  === b.c.d ) );
-console.log( "resolveKeyPath('c.d', b) ..." , result( resolveKeyPath('c.d', b)  === b.c.d ) );
-
-
-console.log(' ')
-
-try{
-    resolveKeyPath('a', false);
-    console.log( "resolveKeyPath('a', false) ...",  result(false) );
-}catch(e){ console.log( "resolveKeyPath('a', false) ...", result( true ), '(Non Resolvable)' ) };
-try{
-    resolveKeyPath('a.b.c', false) ;
-    console.log( "resolveKeyPath('a.b.c', false) ...",  result(false) );
-}catch(e){ console.log( "resolveKeyPath('a.b.c', false) ...", result( true ), '(Non Resolvable)' ) };
-console.log( "resolveKeyPath('b.c', a, false) ..." , ( ()=>{
-    let r =resolveKeyPath('b.c', a, false) ;
-    return result( r.context === a.b && r.property==='c' )
-})() );
-
-console.log( "resolveKeyPath('b', false) ...",  ( ()=>{
-    let r = resolveKeyPath('b', false)
-    return result( r.context === global && r.property==='b' );
-})() )
-console.log( "resolveKeyPath('b.c.d', false) ..." ,   ( ()=>{
-    let r =  resolveKeyPath('b.c.d', false)
-    return result(r.context === b.c && r.property==='d' ) ;
-})() )
-console.log( "resolveKeyPath('c.d', b , false) ..." , ( ()=>{
-    let r = resolveKeyPath('c.d', b, false);
-    return result(  r.context === b.c && r.property==='d' ) ;
-})() )
-
-
-
-
-console.log(' ')
-console.log('TEST : LOCAL RESOLVER')
-console.log('--------------------------------------------------------------------------')
-
-console.log( "resolveLocalKeyPath('a') ...", result( resolveLocalKeyPath('a') === a ) );
-console.log( "resolveLocalKeyPath('a.b.c') ..." , result( resolveLocalKeyPath('a.b.c') === a.b.c ) );
-console.log( "resolveLocalKeyPath('b.c', a) ..." , result( resolveLocalKeyPath('b.c', a) === a.b.c ) );
-
-console.log( "resolveLocalKeyPath('b') ...", result( resolveLocalKeyPath('b')  === b ) );
-console.log( "resolveLocalKeyPath('b.c.d') ..." ,  result( resolveLocalKeyPath('b.c.d')  === b.c.d ) );
-console.log( "resolveLocalKeyPath('c.d', b) ..." , result( resolveLocalKeyPath('c.d', b)  === b.c.d ) );
-
+console.log(' ');
+console.log(' ');
+console.log('*** STARTING TEST ***');
 console.log(' ');
 
-try{
-    // should generate an error
-    resolveLocalKeyPath('a', false)
-    console.log( "resolveLocalKeyPath('a', false) ...", result(false));
-}catch(e){ console.log( "resolveLocalKeyPath('a', false) ...", result(true), '(Non Resolvable)') }
-console.log( "resolveLocalKeyPath('a.b.c', false) ..." , ( ()=>{
-    let r = resolveLocalKeyPath( 'a.b.c', false );
-    return  result(r.context === a.b && r.property === 'c');
-})() );
-console.log( "resolveLocalKeyPath('b.c', a, false) ..." , ( ()=>{
-    let r = resolveLocalKeyPath( 'b.c', a, false );
-    return  result(r.context === a.b && r.property === 'c');
-})() );
-
-console.log( "resolveLocalKeyPath('b', false) ..." , ( ()=>{
-    let r = resolveLocalKeyPath( 'b', false );
-    return  result(r.context === global  && r.property === 'b') ;
-})() );
-console.log( "resolveLocalKeyPath('b.c.d', false) ..." , ( ()=>{
-    let r = resolveLocalKeyPath( 'b.c.d', false );
-    return  result(r.context === b.c  && r.property === 'd') ;
-})() );
-console.log( "resolveLocalKeyPath('c.d', b, false) ..." , ( ()=>{
-    let r = resolveLocalKeyPath( 'c.d', b, false );
-    return  result(r.context === b.c  && r.property === 'd') ;
-})() );
-
-
-
-
-console.log(' ')
-console.log('TEST : OBJECT.PROTOTYPE RESOLVER')
-console.log('--------------------------------------------------------------------------')
-
-
-console.log( "a.resolveKeyPath('b') ...", result( a.resolveKeyPath('b') === a.b ) );
-console.log( "a.resolveKeyPath('b.c') ..." , result( a.resolveKeyPath('b.c') === a.b.c ) );
-
-console.log( "b.resolveKeyPath('c') ...", result( b.resolveKeyPath('c')  === b.c ) );
-console.log( "b.resolveKeyPath('c.d') ..." ,  result( b.resolveKeyPath('c.d')  === b.c.d ) );
-
-
-console.log( " ");
-
-
-console.log( "a.resolveKeyPath('b', false) ...", ( ()=>{
-    let r = a.resolveKeyPath('b', false);
-    return result( r.context=== a && r.property=== 'b' );
-})() )
-console.log( "a.resolveKeyPath('b.c', false) ..." , ( ()=>{
-    let r = a.resolveKeyPath('b.c', false);
-    return result( r.context=== a.b && r.property=== 'c' );
-})() )
-
-console.log( "b.resolveKeyPath('c', false) ...", ( ()=>{
-    let r =  b.resolveKeyPath('c', false);
-    return result( r.context=== b && r.property=== 'c' );
-})() )
-
-console.log( "b.resolveKeyPath('c.d', false) ..." ,  ( ()=>{
-    let r = b.resolveKeyPath('c.d', false);
-    return result( r.context=== b.c && r.property=== 'd' );
-})() )
-
-
-
-
-console.log(' ');
-console.log('TEST : COMPLEX KEYPATHS');
+console.log('TESTED OBJECTS');
 console.log('--------------------------------------------------------------------------');
+console.log(' ');
+console.log('let a    = ',a);
+console.log('global.b = ',b);
+console.log(' ');
+console.log('--------------------------------------------------------------------------');
+console.log(' ');
 
 
-console.log( "a.resolveKeyPath('d.5.e')",  result( a.resolveKeyPath('d.5.e') === a.d[5].e ) );
-console.log( "a.resolveKeyPath('d[5].e')", result( a.resolveKeyPath('d[5].e') === a.d[5].e ) );
-console.log( "a.resolveKeyPath('d[5][\"e\"]')" , result( a.resolveKeyPath('d[5]["e"]') === a.d[5].e ) );
-console.log( "a.resolveKeyPath('d[5][\'e\']')" , result( a.resolveKeyPath('d[5][\'e\']') === a.d[5].e ) );
-console.log( "a.resolveKeyPath('d[\"5\"].e') ", result(a.resolveKeyPath('d["5"].e') === a.d[5].e ) );
+console.log(' ');
+console.log('TEST : RESOLVE');
+console.log('--------------------------------------------------------------------------');
+try{
+    Keypath.resolve('a');
+    console.log( "Keypath.resolve('a') ...",  result(false) );
+}catch(e){ console.log( "Keypath.resolve('a') ...", result( true ), '(Non Resolvable)' ) };
+try{
+    Keypath.resolve('a.b.c') ;
+    console.log( "Keypath.resolve('a.b.c') ...",  result(false) );
+}catch(e){ console.log( "Keypath.resolve('a.b.c') ...", result( true ), '(Non Resolvable)' ) };
+console.log( "Keypath.resolve(a, 'b.c') ..." , result( Keypath.resolve(a, 'b.c') === a.b.c ) );
+console.log( "Keypath.resolve('b') ...", result( Keypath.resolve('b')  === b ) );
+console.log( "Keypath.resolve('b.c.d') ..." ,  result( Keypath.resolve('b.c.d')  === b.c.d ) );
+console.log( "Keypath.resolve(b, 'c.d') ..." , result( Keypath.resolve(b,'c.d')  === b.c.d ) );
+
+
+
+console.log(' ');
+console.log('TEST : CONTEXT RESOLVE');
+console.log('--------------------------------------------------------------------------');
+try{
+    Keypath.resolveContext('a');
+    console.log( "Keypath.resolveContext('a') ...",  result(false) );
+}catch(e){ console.log( "Keypath.resolveContext('a') ...", result( true ), '(Non Resolvable)' ) };
+try{
+    Keypath.resolveContext('a.b.c');
+    console.log( "Keypath.resolveContext('a.b.c') ...",  result(false) );
+}catch(e){ console.log( "Keypath.resolveContext('a.b.c') ...", result( true ), '(Non Resolvable)' ) };
+console.log( "Keypath.resolveContext(a, 'b.c') ..." , ( ()=>{
+    let r = Keypath.resolveContext(a, 'b.c') ;
+    return result( r.context === a.b && r.property==='c' );
+})() );
+console.log( "Keypath.resolveContext('b') ...",  ( ()=>{
+    let r = Keypath.resolveContext('b');
+    return result( r.context === global && r.property==='b' );
+})() );
+console.log( "Keypath.resolveContext('b.c.d') ..." ,   ( ()=>{
+    let r =  Keypath.resolveContext('b.c.d');
+    return result(r.context === b.c && r.property==='d' ) ;
+})() );
+console.log( "Keypath.resolveContext(b, 'c.d') ..." , ( ()=>{
+    let r = Keypath.resolveContext(b, 'c.d');
+    return result(  r.context === b.c && r.property==='d' ) ;
+})() );
+
+
+
+console.log(' ');
+console.log('TEST : BRACKET NOTATION');
+console.log('--------------------------------------------------------------------------');
+console.log( "Keypath(a,'d.5.e')",  result( Keypath(a,'d.5.e') === a.d[5].e ) );
+console.log( "Keypath(a,'d[5].e')", result( Keypath(a,'d[5].e') === a.d[5].e ) );
+console.log( "Keypath(a,'d[5][\"e\"]')" , result( Keypath(a,'d[5]["e"]') === a.d[5].e ) );
+console.log( "Keypath(q,'d[5][\'e\']')" , result( Keypath(a,'d[5][\'e\']') === a.d[5].e ) );
+console.log( "Keypath(a,'d[\"5\"].e') ", result(Keypath(a,'d["5"].e') === a.d[5].e ) );
+
+console.log(' ');
+
+console.log('TEST : API');
+console.log('--------------------------------------------------------------------------');
+console.log( "Keypath.exist(a,'b')",  result( Keypath.exist(a,'b') === true ) );
+console.log( "Keypath.exist(a,'h')",  result( Keypath.exist(a,'h') === false ) );
+
+console.log( "Keypath.create(a,'h')",  result( Keypath.create(a,'h') === a.h ) );
+console.log( "Keypath.create(a,'i.j.k')",  result( Keypath.create(a,'i.j.k') === a.i.j.k ) );
+console.log( "Keypath.create('b.z.j.k')",  result( Keypath.create('b.z.j.k') === b.z.j.k ) );
+
+console.log( "Keypath.assign(a, 'i.j.k', {} )",  result( Keypath.assign(a, 'i.j.k',{}) === a.i.j.k) );
+console.log( "Keypath.assign(a, 'i.j.k.l', 123)",  result( Keypath.assign(a, 'i.j.k.l',123) === 123) );
+console.log( "Keypath.assign(a, 'i', 123)",  result( Keypath.assign(a, 'i',123) === 123) );
+console.log( "Keypath.assign('b.i', 123)",  result( Keypath.assign('b.i',123) === 123) );
+console.log( "Keypath.assign(b,'f', 123)",  result( Keypath.assign(b,'f',123) === 123 ) );
+console.log( "Keypath.assign('c', 123)",  result( Keypath.assign('c',123) === 123) );
 
 
 
@@ -229,29 +161,27 @@ console.log( " " );
 console.log( " " );
 console.log( "BONUS TEST : TIMMING" );
 console.log('--------------------------------------------------------------------------');
-let loops = 5000;
-console.log( "Executing " , loops*15, 'resolutions...');
+let loops = 7800;
+console.log( "Executing " , loops*13, 'resolutions...');
 let initTime = new Date();
 
 for(let i =0; i<= loops;i++){
-    resolveKeyPath('b.c.d')
-    resolveKeyPath('c.d', b)
-    resolveKeyPath('b', false)
-    resolveKeyPath('b.c.d', false)
-    resolveKeyPath('c.d', b, false)
-    resolveLocalKeyPath('a')
-    resolveLocalKeyPath('a.b.c')
-    resolveLocalKeyPath('b.c', a)
-    resolveLocalKeyPath('b', false)
-    resolveLocalKeyPath('b.c.d', false)
-    resolveLocalKeyPath('c.d', b, false)
-    a.resolveKeyPath('b')
-    a.resolveKeyPath('b.c')
-    b.resolveKeyPath('c', false)
-    b.resolveKeyPath('c.d', false)
+    Keypath('b');
+    Keypath('b.c');
+    Keypath(b, 'c');
+    Keypath(b, 'c.d');
+    Keypath(b, 'e.2');
+    Keypath(b, 'e[3]');
+    Keypath(a, 'b');
+    Keypath(a,'b.c');
+    Keypath(a, 'd');
+    Keypath(a, 'd[1]');
+    Keypath(a, 'd["2"]');
+    Keypath(a, 'd[4]');
+    Keypath(a, 'd.3');
 }
 
 console.log( " " );
-console.log('--------------------------------------------------------------------------')
+console.log('--------------------------------------------------------------------------');
 console.log( "ELAPSED TIME :", new Date() - initTime ,'ms' );
-console.log('--------------------------------------------------------------------------')
+console.log('--------------------------------------------------------------------------');

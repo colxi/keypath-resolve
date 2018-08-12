@@ -5,19 +5,22 @@
 [![Browser](https://img.shields.io/badge/browser-compatible-blue.svg)](https://github.com/colxi/midi-parser-js)
 [![Node](https://img.shields.io/badge/node-compatible-brightgreen.svg)](https://www.npmjs.com/package/midi-parser-js)
 
-Tiny and flexible **Object KeyPath resolver** library (  1Kb gziped, 3Kb minified), to evaluate sting Object Keypaths (eg. `myObj.myProperty.myNestedArray[3]`), and return the resulting value.
-
-It can return also a on-step-to-resolution Object (final property Object context), when required, to allow manual resolution
+Tiny and flexible library ( 1Kb gziped, 3Kb minified), for **safe**  evaluation (**no is eval used internally**) and resolution of Keypaths, formated using  dot and bracket notation (eg. `myObj.myProperty.myNestedArray[3].deepProperty`).
 
 
+The API also provides methods for common keypath operations :
+- Keypath.resolve()
+- Keypath.create()
+- Keypath.assign()
+- Keypath.exist()
+- Keypath.resolveContext()
 
-
+## Features 
  
-- Allows Keypaths in dot notation and braket notation 
-- Special 'constructor' for private local context keypath resolutons
+- Allows Keypaths in dot notation and bracket notation (and mixed)
 - Allows Global context resolutions (autodetects `window`/`global`)
 - No dependencies
-- Extremely fast : >100,000 keypath resolutions/second
+- Extremely fast : >200,000 keypath resolutions/second
 - Wide platform support : 
   - Node 
   - Chrome 49+
@@ -27,83 +30,97 @@ It can return also a on-step-to-resolution Object (final property Object context
   - Safari 5.1+
   - Internet Explorer 11+
 
-## Syntax
+## API Methods
 
-### resolveKeyPath()
+### Keypath.resolve()
 
-Two syntax forms are allowed:
-> **resolveKeypath( keyPath  [,contextObject] [,resolveValue] )**
+Resolves the value of the provided keypath . If the keypath does not exist in the object triggers an error.
+> **Keypath.resolve(  [contextObject ,]  keypath )**
 
-> **resolveKeypath( keyPath  [,resolveValue] )**
+- **`contextObject`** : (optional) Object to use as scope context. If omited, global scope is used instead.
+- **`keyPath`**: String representing the keyPath to resolve.
 
-- **`keyPath`**: String (or Array of strings) representing the keyPath to resolve.
-- **`contextObject`** : (optional) Object to use as scope context. If omited, global scope is used instead. If this parameter is set  to true or false, will behave as `resolveValue` argument and global scope will be used as `scopeContext`. 
-- **`resolveValue`** : (optional) Boolean.  If true, the function call will return the value of the resolution. If  set to false, will return the context of the resulting resolution, and the name of the property to  resolve. (default true)
- 
-
-**Returns** : Resolved value or resolution context (when `resolveValue=false`)
-
----
-### Object.prototype.resolveKeyPath() 
-
-> **Object.prtotype.resolveKeypath( keyPath  [,resolveValue] )**
-
-Same syntax as resolveKeyPath(), except it doesn't need the `contexObject`parameter
-
----
-
-### resolveLocalKeyPath "Constructor"
-
-This Experimental "Constructor" returns a method, capable of resolving keypaths in the private local scope ( scpe where the `Eval` was executed )
-
-> **let resolveLocalKeyPath = eval( resolveKeyPath.localScope );**
-
-
-Same syntax as resolveKeyPath(), except it doesn't need the `contexObject`parameter (but can be provided).
->**Warning : the resulting keypath resolver function, uses `eval`intenally. Don't use it with untrusted keypaths  **
-
-
-## Basic usage example 
-
-Usage of resolveKeypath() and Object.prototype.resolveKeyPath()
 
 ```javascript
-    // object to be usedin keypath resolution
 	const myObj = {
-		myNested : [ 'foo', 'bar']
+		myProp : [ 'foo', 'bar']
     }
-    resolveKeyPath('myNested[0]', myObj);   // returns 'foo'
- 
-    myObj.resolveKeyPath('myNested[1]');   // returns 'bar'
-
-```
-## Advanced usage examples 
-Usage of resolveKeyPath() without value resolution (retrieve resolution context):
-
-```javascript
-    const myObj = {
-        myNested : [ 'foo', 'bar']
-    }
-    resolveKeyPath( 'myNested[1]', myObj, false)  
-    // returns { context: [ 'foo', 'bar'] , property: '1' }
-
+    Keypath.resolve(myObj, 'myProp[0]');   
+    // returns 'foo'
 ```
 
+### Keypath.create()
+Creates the provided keypath structure, as a sequence of objects or arrays, according to the keypath string.
 
-Usage of resolveLocalKeyPath() :
+> **Keypath.create(  [contextObject ,]  keypath )**
+
+- **`contextObject`** : (optional) Object to use as scope context. If omited, global scope is used instead.
+- **`keyPath`**: String representing the keyPath to create.
+
 
 ```javascript
-    // generate a private scooe ...
-    (function(){
-        const myObj = {
-            myNested : [ 'foo', 'bar']
+	const myObj = {}
+    Keypath.create(myObj, 'myNested.myProp');   
+    // creates the following object structure :
+    // myObj.myNested.myProp , and sets the last property
+    // value to undefined. Returns undefined
+```
+
+### Keypath.assign()
+Resolves the provided keypath and assignsto it the provided value. If the keypath does not exist in the object triggers an error.
+
+> **Keypath.assign(  [contextObject ,]  keypath, value )**
+
+- **`contextObject`** : (optional) Object to use as scope context. If omited, global scope is used instead.
+- **`keyPath`**: String representing the keyPath to create.
+- **`value`** : Value to set to the keypath resolution item
+
+```javascript
+	const myObj = {
+    	myProp : undefined
+    }
+    Keypath.assign(myObj, 'myProp', 'foo');   
+    // Assigns 'foo' to myProp and returns foo'
+```
+
+
+### Keypath.exist()
+Tries to resolve the provided keypath, if succeeds returns true, if fails returns false. 
+> **Keypath.exist(  [contextObject ,]  keypath )**
+
+- **`contextObject`** : (optional) Object to use as scope context. If omited, global scope is used instead.
+- **`keyPath`**: String representing the keyPath to create.
+
+```javascript
+	const myObj = {
+    	myProp : [111,222,333,444]
+    }
+    Keypath.exist(myObj, 'myProp[2]' );   
+    // Returns true
+```
+
+
+### Keypath.resolveContext()
+Resolves the provided keypath and returns an object containing the context of the resolution and the name of the property to retrieve the value. If the keypath cannot be resolved, triggers an error.
+> **Keypath.resolveContext(  [contextObject ,]  keypath )**
+
+- **`contextObject`** : (optional) Object to use as scope context. If omited, global scope is used instead.
+- **`keyPath`**: String representing the keyPath to create.
+
+```javascript
+	const myObj = {
+    	myNested:  {
+        	first: 'foo',
+            second : 'bar'
         }
-    	// construct the local resolver
-        let resolveLocalKeyPath = eval( resolveKeyPath.localScope );
-	    resolveLocalKeyPath( 'myObj.myNested[0]' )   // returns 'foo'
-    })();
-
+    }
+    Keypath.resolveContext(myObj, 'myProp.myNested.first]' );   
+    // Returns Object :
+    // { context: {first: 'foo', second: 'bar'} , property:'foo' }
 ```
+
+
+---
 
 ## Package distribution :
 
@@ -119,9 +136,26 @@ Package can also be installed via:
 $ npm install keypath-resolve --save
 ```
 
-**In browsers enviroment the global `window.resolveKeyPath()` method is created automatically. However in Node you must use `require` to retrieve the  `resolveKeyPath()`  exported method.**
+Available in Github :
+```
+ https://github.com/colxi/keypath-resolve
+```
 
+**In browsers enviroment the global `window.Keypath`  Object is created automatically.  In Node you must perform a regulr module import using  `require` to retrieve the  `Keypath`  exported Object.**
 
+## Changelog
+v2.0.0 Major changes 
+
+- New API  
+- New methods and features
+- Removed local resolver (inapropiate use could lead to security issues )
+- Removed Object.prototype.resolveKeyPath ( to avoid messing with prototypes of primitives )
+
+v1.2.2 Improved speed and implemented bracket notation
+
+v1.2.1 Minor bufgixes, improved documentation
+
+v1.2.0 First public release
 
 ## Licence 
-GPL 3
+MIT
