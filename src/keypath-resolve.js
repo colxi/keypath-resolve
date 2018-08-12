@@ -2,13 +2,12 @@
 * @Author: colxi  (colxi.kl@gmail.com)
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-12 10:15:49
+* @Last Modified time: 2018-08-12 10:19:11
 * @Webpage: https://www.npmjs.com/package/keypath-resolve
 *
-* keypath() :  Resolves a string representation of an object key path,
+* keypath() :         Resolves a string representation of an object key path,
 *                     using the provided object as a Context, the global scope
-*                     context, or  pervorms a local resolution if constructed
-*                     using he local resolver form.
+*                     context. Secondary methods allow keypath manipulation
 */
 'use strict';
 
@@ -260,6 +259,10 @@
             a.assignValue = kp;
             return Keypath( c , a );
         }
+    };
+
+    Keypath.toArray = function( kp ){
+        return keyPathToArray(kp);
     };
 
     // Export method if running in node module, or declare it in the

@@ -131,6 +131,16 @@ Resolves the provided keypath and returns an object containing the context of th
     // { context: {first: 'foo', second: 'bar'} , property:'foo' }
 ```
 
+### Keypath.toArray()
+Returns an array with the keys of the provided keypath. Returns false if the keypath is not properly formated
+> **Keypath.toArray( keypath )**
+
+- **`keyPath`**: String representing the keyPath to create.
+
+```javascript
+    Keypath.exist('myProp[2].myNested["deepProp"]' );   
+    // Returns ['myProp', '2','myNested','deepProp'] 
+```
 
 ---
 
@@ -174,6 +184,9 @@ Available in Github :
 **In browsers enviroment the global `window.Keypath`  Object is created automatically.  In Node you must perform a regulr module import using  `require` to retrieve the  `Keypath`  exported Object.**
 
 ## Changelog
+
+v2.2.0 Added Keypath.toArray and improved documentation
+
 v2.0.0 Major changes 
 
 - New API  
