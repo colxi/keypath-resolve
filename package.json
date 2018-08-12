@@ -1,7 +1,7 @@
 {
     "name": "keypath-resolve",
     "version": "2.1.2",
-    "description": "Tiny library (1Kb) to resolve and manipulate keyPaths. Allows dot and bracket notation.",
+    "description": "Tiny library (1Kb) to resolve and manipulate keyPaths. Allows dot and bracket notation complex keypaths.",
     "main": "./src/keypath-resolve.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,9 +15,11 @@
         "keypath",
         "resolve-keypath",
         "resolve keypath",
+        "resolve keypath context",
         "keypath resolver",
         "key path resolve",
         "keypath to array",
+        "keypath split",
         "keypath exist",
         "keypath assign",
         "keypath create",

@@ -129,7 +129,7 @@ Resolves the provided keypath and returns an object containing the context of th
     }
     Keypath.resolveContext(myObj, 'myProp.myNested.first]' );   
     // Returns Object :
-    // { context: {first: 'foo', second: 'bar'} , property:'foo' }
+    // { context: {first: 'foo', second: 'bar'} , property:'first' }
 ```
 
 ### Keypath.toArray()
@@ -145,7 +145,7 @@ Returns an array with the keys of the provided keypath. Returns false if the key
 
 ---
 
-### Global Context Resolutions
+## Global Context Resolutions
 
 > When the context object is omited, in any of the API methods calls, the resolution will be performed searching in the global object (window/global).
 
