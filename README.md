@@ -120,7 +120,7 @@ Resolves the provided keypath and returns an object containing the context of th
 ```javascript
     const myObj = {
     	myNested:  {
-        	first: 'foo',
+            first: 'foo',
             second : 'bar'
         }
     }
@@ -132,9 +132,9 @@ Resolves the provided keypath and returns an object containing the context of th
 
 ---
 
-### Global Context
+### Global Context Resolutions
 
-When the context object is omited, in any of the API methods calls, the resolution will be performed searching in the global object (window/global).
+> When the context object is omited, in any of the API methods calls, the resolution will be performed searching in the global object (window/global).
 
 
 
