@@ -2,7 +2,7 @@
 * @Author: colxi  (colxi.kl@gmail.com)
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-12 10:19:11
+* @Last Modified time: 2018-08-12 10:39:49
 * @Webpage: https://www.npmjs.com/package/keypath-resolve
 *
 * keypath() :         Resolves a string representation of an object key path,
@@ -33,49 +33,6 @@
      * @return      Array|false
      */
     function keyPathToArray(keyPath){
-        /**
-         *
-         * parseKey() : Proceses keys strings, and adds another validation layer
-         * It can parse regular keys, keys starting with a dot, and keys represented
-         * with the bracket notation. Returns a clean key name, or false if
-         * inon properly formated key name.
-         *
-         * @param       keyStr        String  representing the key name
-         *
-         * @return                       Strung or false if fails
-         *
-         */
-        const parseKey = function(keyStr){
-            if(keyStr[0] === '.'){
-                // if key starts with a dot, is a regular key.
-                // Remove the dot
-                // eg. ".myKey" -> "myKey"
-                keyStr=keyStr.substring(1);
-            }else if( keyStr[0]==='['){
-                // If key starts with a bracket
-                // remove brackets and trim the content
-                // eg. "[ 'myKey' ]" -> " 'myKey' " -> "'myKey'"
-                keyStr = keyStr.slice(1,-1).trim();
-
-                // if key is not an Integer, must be quoted (single or double
-                // quotes allowed), if is properly quoted, remove quotes.
-                // Returnn false if not properly quoted
-                if( keyStr !== String(parseInt(keyStr)) ){
-                    let first= keyStr[0];
-                    let last = keyStr.slice(-1);
-                    if( (first==='"' && last=== '"') ||  (first==='\'' && last=== '\'') ){
-                        // remove quotes
-                        keyStr= keyStr.slice(1,-1);
-                    }else return false; // unproperly quoted
-                }
-            }
-            // validate : key string has length after the procesing.
-            if( !keyStr.length ) return false; // invalid length
-
-            // done!
-            return keyStr;
-        };
-
 
         // block if keypath is not a string
         if(typeof keyPath !== 'string') return false;
@@ -114,6 +71,48 @@
         return result;
     }
 
+    /**
+     *
+     * parseKey() : Proceses keys strings, and adds another validation layer
+     * It can parse regular keys, keys starting with a dot, and keys represented
+     * with the bracket notation. Returns a clean key name, or false if
+     * inon properly formated key name.
+     *
+     * @param       keyStr        String  representing the key name
+     *
+     * @return                       Strung or false if fails
+     *
+     */
+    function parseKey(keyStr){
+        if(keyStr[0] === '.'){
+            // if key starts with a dot, is a regular key.
+            // Remove the dot
+            // eg. ".myKey" -> "myKey"
+            keyStr=keyStr.substring(1);
+        }else if( keyStr[0]==='['){
+            // If key starts with a bracket
+            // remove brackets and trim the content
+            // eg. "[ 'myKey' ]" -> " 'myKey' " -> "'myKey'"
+            keyStr = keyStr.slice(1,-1).trim();
+
+            // if key is not an Integer, must be quoted (single or double
+            // quotes allowed), if is properly quoted, remove quotes.
+            // Returnn false if not properly quoted
+            if( keyStr !== String(parseInt(keyStr)) ){
+                let first= keyStr[0];
+                let last = keyStr.slice(-1);
+                if( (first==='"' && last=== '"') ||  (first==='\'' && last=== '\'') ){
+                    // remove quotes
+                    keyStr= keyStr.slice(1,-1);
+                }else return false; // unproperly quoted
+            }
+        }
+        // validate : key string has length after the procesing.
+        if( !keyStr.length ) return false; // invalid length
+
+        // done!
+        return keyStr;
+    }
 
     /**
      *
@@ -221,7 +220,13 @@
     };
 
 
-    //  API METHODS
+
+
+    /*
+     -----------------------------------------------------------------------
+        PUBLIC API METHODS
+     -----------------------------------------------------------------------
+    */
     Keypath.resolve = function( c , kp ){
         let a = {action : 'resolve'};
         return ( !kp ) ?
@@ -262,7 +267,7 @@
     };
 
     Keypath.toArray = function( kp ){
-        return keyPathToArray(kp);
+        return keyPathToArray( kp || '' );
     };
 
     // Export method if running in node module, or declare it in the

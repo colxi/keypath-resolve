@@ -19,6 +19,7 @@ The library API provides methods for common keypath operations :
 - Keypath.create()
 - Keypath.assign()
 - Keypath.exist()
+- Keypath.toArray()
 - Keypath.resolveContext()
 
 ## Features 
