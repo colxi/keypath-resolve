@@ -21,6 +21,8 @@ The library API provides methods for common keypath operations :
 - Keypath.exist()
 - Keypath.toArray()  
 - Keypath.resolveContext()
+- Keypath.defaultContext()
+
 
 ## Features 
 - No dependencies. Tiny and compact.
@@ -38,8 +40,8 @@ The library API provides methods for common keypath operations :
   - Internet Explorer 11+
 
 ## API Methods
-
-### Keypath.resolve()
+<details>### <summary>Keypath.resolve()</summary>
+<p>
 
 Resolves the value of the provided keypath . If the keypath does not exist in the object triggers an error.
 > **Keypath.resolve(  [contextObject ,]  keypath )**
@@ -61,7 +63,7 @@ Resolves the value of the provided keypath . If the keypath does not exist in th
     Keypath.resolve(myObj, "myArray['0'].myProp");   
     // all return 'foo'
 ```
-
+</details>
 ### Keypath.create()
 Creates the provided keypath structure, as a sequence of objects or arrays, according to the keypath string.
 
