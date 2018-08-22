@@ -21,7 +21,7 @@ Tiny and flexible library ( 1Kb gziped, 3Kb minified), for **safe** (any form  o
   - Node , Chrome 49+, Firefox 47+, Edge, Opera , Safari 5.1+, Internet Explorer 11+
 
 ## API Methods
-The library API provides methods for common keypath operations :
+The library API provides methods for common keypath operations (unfold to see syntax and usage specs) :
 
 <details><summary>Keypath.resolve()</summary>
 <p>
@@ -121,6 +121,22 @@ Tries to resolve the provided keypath, if succeeds returns true, if fails return
 ```
 </details>
 
+<details><summary>Keypath.toArray()</summary>
+<p>
+  
+### Keypath.toArray()
+---
+
+Returns an array with the keys of the provided keypath. Returns false if the keypath is not properly formated
+> **Keypath.toArray( keypath )**
+
+- **`keyPath`**: String representing the keyPath to create.
+
+```javascript
+    Keypath.exist('myProp[2].myNested["deepProp"]' );   
+    // Returns ['myProp', '2','myNested','deepProp'] 
+```
+</details>
 
 <details><summary>Keypath.resolveContext()</summary>
 <p>
@@ -144,24 +160,6 @@ Resolves the provided keypath and returns an object containing the context of th
     Keypath.resolveContext(myObj, 'myProp.myNested.first]' );   
     // Returns Object :
     // { context: {first: 'foo', second: 'bar'} , property:'first' }
-```
-</details>
-
-
-<details><summary>Keypath.toArray()</summary>
-<p>
-  
-### Keypath.toArray()
----
-
-Returns an array with the keys of the provided keypath. Returns false if the keypath is not properly formated
-> **Keypath.toArray( keypath )**
-
-- **`keyPath`**: String representing the keyPath to create.
-
-```javascript
-    Keypath.exist('myProp[2].myNested["deepProp"]' );   
-    // Returns ['myProp', '2','myNested','deepProp'] 
 ```
 </details>
 
@@ -194,7 +192,7 @@ Set the context to be used by default, when no context is provided to the API co
 
 ## Global Context Resolutions
 
-> When the context object is omited, in any of the API methods calls, the resolution will be performed searching in the global object (window/global).
+> By default when the context object is omited ( in any of the API methods calls ), the resolution will be performed searching in the global object (window/global).
 
 
 
@@ -209,6 +207,7 @@ Set the context to be used by default, when no context is provided to the API co
     Keypath.resolve('myObj.myArray[0].myProp');   
     // returns 'foo'
 ```
+> However if the default resolution context is reassigned, using `Keypath.defaultContext( anyObj )` this behavior does not apply anymore until global context (global/window) is set again `Keypath.defaultContext( global )` 
 
 ## Package distribution :
 
