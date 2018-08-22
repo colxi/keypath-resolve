@@ -11,19 +11,6 @@ Tiny and flexible library ( 1Kb gziped, 3Kb minified), for **safe** (any form  o
   // simple resolution example
   Keypath.resolve( targeObj , 'myProperty.myNestedArray[3]["deepProperty"]' )
 ```
-
-
-
-The library API provides methods for common keypath operations :
-- Keypath.resolve()
-- Keypath.create()
-- Keypath.assign()
-- Keypath.exist()
-- Keypath.toArray()  
-- Keypath.resolveContext()
-- Keypath.defaultContext()
-
-
 ## Features 
 - No dependencies. Tiny and compact.
 - Accepts Keypaths in dot notation and bracket notation (or mixed)
@@ -31,17 +18,16 @@ The library API provides methods for common keypath operations :
 - Safe : no `eval`, or `new Function()` code evaluation
 - Extremely fast : >200,000 keypath resolutions/second (check ./tests/test.js)
 - Wide platform support : 
-  - Node 
-  - Chrome 49+
-  - Firefox 47+
-  - Edge
-  - Opera
-  - Safari 5.1+
-  - Internet Explorer 11+
+  - Node , Chrome 49+, Firefox 47+, Edge, Opera , Safari 5.1+, Internet Explorer 11+
 
 ## API Methods
-<details>### <summary>Keypath.resolve()</summary>
+The library API provides methods for common keypath operations :
+
+<details><summary>Keypath.resolve()</summary>
 <p>
+  
+### Keypath.resolve()
+---
 
 Resolves the value of the provided keypath . If the keypath does not exist in the object triggers an error.
 > **Keypath.resolve(  [contextObject ,]  keypath )**
@@ -64,7 +50,14 @@ Resolves the value of the provided keypath . If the keypath does not exist in th
     // all return 'foo'
 ```
 </details>
+
+
+<details><summary>Keypath.create()</summary>
+<p>
+  
 ### Keypath.create()
+---
+
 Creates the provided keypath structure, as a sequence of objects or arrays, according to the keypath string.
 
 > **Keypath.create(  [contextObject ,]  keypath )**
@@ -80,8 +73,15 @@ Creates the provided keypath structure, as a sequence of objects or arrays, acco
     // myObj.myNested.myProp , and sets the last property
     // value to undefined. Returns undefined
 ```
+</details>
 
+
+<details><summary>Keypath.assign()</summary>
+<p>
+  
 ### Keypath.assign()
+---
+
 Resolves the provided keypath and assigns to it the provided value. If the keypath does not exist in the object triggers an error.
 
 > **Keypath.assign(  [contextObject ,]  keypath, value )**
@@ -97,9 +97,15 @@ Resolves the provided keypath and assigns to it the provided value. If the keypa
     Keypath.assign(myObj, 'myProp', 'foo');   
     // Assigns 'foo' to myProp and returns foo'
 ```
+</details>
 
 
+<details><summary>Keypath.exist()</summary>
+<p>
+  
 ### Keypath.exist()
+---
+
 Tries to resolve the provided keypath, if succeeds returns true, if fails returns false. 
 > **Keypath.exist(  [contextObject ,]  keypath )**
 
@@ -113,9 +119,15 @@ Tries to resolve the provided keypath, if succeeds returns true, if fails return
     Keypath.exist(myObj, 'myProp[2]' );   
     // Returns true
 ```
+</details>
 
 
+<details><summary>Keypath.resolveContext()</summary>
+<p>
+  
 ### Keypath.resolveContext()
+---
+
 Resolves the provided keypath and returns an object containing the context of the resolution and the name of the property to retrieve the value. If the keypath cannot be resolved, triggers an error.
 > **Keypath.resolveContext(  [contextObject ,]  keypath )**
 
@@ -133,8 +145,15 @@ Resolves the provided keypath and returns an object containing the context of th
     // Returns Object :
     // { context: {first: 'foo', second: 'bar'} , property:'first' }
 ```
+</details>
 
+
+<details><summary>Keypath.toArray()</summary>
+<p>
+  
 ### Keypath.toArray()
+---
+
 Returns an array with the keys of the provided keypath. Returns false if the keypath is not properly formated
 > **Keypath.toArray( keypath )**
 
@@ -144,8 +163,15 @@ Returns an array with the keys of the provided keypath. Returns false if the key
     Keypath.exist('myProp[2].myNested["deepProp"]' );   
     // Returns ['myProp', '2','myNested','deepProp'] 
 ```
+</details>
 
+
+<details><summary>Keypath.defaultContext()</summary>
+<p>
+  
 ### Keypath.defaultContext()
+---
+
 Set the context to be used by default, when no context is provided to the API collection methods calls (by default: global/windowd).
 > **Keypath.defaultContext( context )**
 
@@ -162,6 +188,8 @@ Set the context to be used by default, when no context is provided to the API co
     // Returns true
     // (...)
 ```
+</details>
+
 ---
 
 ## Global Context Resolutions
