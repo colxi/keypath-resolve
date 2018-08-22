@@ -144,7 +144,7 @@ Returns an array with the keys of the provided keypath. Returns false if the key
 ```
 
 ### Keypath.defaultContext()
-Set the context to benued by default, when ni cintext is provided. (by default: global/windowd) 
+Set the context to be used by default, when no context is provided to the API collection methods calls (by default: global/windowd).
 > **Keypath.defaultContext( context )**
 
 - **`context`**: Reference to the object to be used as default context.
@@ -153,9 +153,12 @@ Set the context to benued by default, when ni cintext is provided. (by default: 
     myObj= {
         myProo:'foo'
     }
-    Keypath.defaultContext(myObj);   
+    Keypath.defaultContext( myObj );   
     Keypath.resolve('myProp');
     // Returns 'foo'
+    Keypath.exist('myProp');
+    // Returns true
+    // (...)
 ```
 ---
 
