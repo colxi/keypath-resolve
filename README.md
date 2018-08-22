@@ -207,11 +207,11 @@ Set the context to be used by default, when no context is provided to the API co
     Keypath.resolve('myObj.myArray[0].myProp');   
     // returns 'foo'
 ```
-> However if the default resolution context is reassigned, using `Keypath.defaultContext( anyObj )` this behavior does not apply anymore until global context (global/window) is set again `Keypath.defaultContext( global )` 
+> However if the default resolution context is reassigned, using `Keypath.defaultContext( anyObj )` this behavior does not apply anymore until the default Context is set again to the global object (global/window) using `Keypath.defaultContext( global )` 
 
 ## Package distribution :
 
-In browser enviroment you can include this library using the jsdelivr CDN ...
+In browser enviroment you can include this library using the CDN ...
 
 ```
 <script src='https://cdn.jsdelivr.net/gh/colxi/keypath-resolve@latest/src/keypath-resolve.min.js'></script>
@@ -223,7 +223,7 @@ Package can also be installed via:
 $ npm install keypath-resolve --save
 ```
 
-Available in Github :
+and available in Github :
 ```
  https://github.com/colxi/keypath-resolve
 ```
