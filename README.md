@@ -143,6 +143,20 @@ Returns an array with the keys of the provided keypath. Returns false if the key
     // Returns ['myProp', '2','myNested','deepProp'] 
 ```
 
+### Keypath.defaultContext()
+Set the context to benued by default, when ni cintext is provided. (by default: global/windowd) 
+> **Keypath.defaultContext( context )**
+
+- **`context`**: Reference to the object to be used as default context.
+
+```javascript
+    myObj= {
+        myProo:'foo'
+    }
+    Keypath.defaultContext(myObj);   
+    Keypath.resolve('myProp');
+    // Returns 'foo'
+```
 ---
 
 ## Global Context Resolutions
@@ -185,6 +199,7 @@ Available in Github :
 **In browsers enviroment the global `window.Keypath`  Object is created automatically.  In Node you must perform a regulr module import using  `require` to retrieve the  `Keypath`  exported Object.**
 
 ## Changelog
+v2.1.4 Added Keypath.defaultContext method
 
 v2.1.2 Added Keypath.toArray and improved documentation
 

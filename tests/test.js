@@ -2,7 +2,7 @@
 * @Author: colxi
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-11 22:39:01
+* @Last Modified time: 2018-08-22 00:00:25
 */
 'use strict'
 const Keypath= require ('../src/keypath-resolve.js');
@@ -147,7 +147,16 @@ console.log( "Keypath.assign('b.i', 123)",  result( Keypath.assign('b.i',123) ==
 console.log( "Keypath.assign(b,'f', 123)",  result( Keypath.assign(b,'f',123) === 123 ) );
 console.log( "Keypath.assign('c', 123)",  result( Keypath.assign('c',123) === 123) );
 
-
+console.log(' ');
+console.log('TEST : RESOLVE (custom default context)');
+console.log('--------------------------------------------------------------------------');
+Keypath.defaultContext(a);
+console.log( "Keypath.resolve('b.c') ..." , result( Keypath.resolve('b.c') === a.b.c ) );
+console.log( "Keypath.resolve('b') ...", result( Keypath.resolve('b')  === a.b ) );
+Keypath.defaultContext(b);
+console.log( "Keypath.resolve('c.d') ..." ,  result( Keypath.resolve('c.d')  === b.c.d ) );
+console.log( "Keypath.resolve('c') ..." , result( Keypath.resolve('c')  === b.c ) );
+Keypath.defaultContext(global);
 
 console.log( " " );
 console.log('--------------------------------------------------------------------------');

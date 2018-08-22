@@ -2,7 +2,7 @@
 * @Author: colxi  (colxi.kl@gmail.com)
 * @Date:   2018-08-04 09:26:27
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-08-12 10:39:49
+* @Last Modified time: 2018-08-21 23:56:17
 * @Webpage: https://www.npmjs.com/package/keypath-resolve
 *
 * keypath() :         Resolves a string representation of an object key path,
@@ -13,14 +13,13 @@
 
 (function(){
     // Configuration
-    let GLOBAL;
-    // test if code is executed in Node envirment, and update
-    // ENV flag if the test results positive
+    let DEFAULT;
+    // set  DEFAULT global context, according the enviroment
     try {
         if( Object.prototype.toString.call(global.process) === '[object process]' ){
-            GLOBAL = global;
+            DEFAULT = global;
         }
-    }catch(e) { GLOBAL = window }
+    }catch(e) { DEFAULT = window }
 
 
     /**
@@ -118,12 +117,12 @@
      *
      * keypath() : Resolves and manioulate Object and arrays keypaths.
      * This method will start the resolution in the provided context object, or
-     * if not present, in the global scope.
+     * if not present, in the default scope (by default global/window scope)
      *
      *
      * @param  context          Optional. Object to use as scope context.
-     *                          If string behaves as keypath, and global scope
-     *                          is used as context
+     *                          If is a string behaves as keypath, and default
+     *                          scooe is used as context
      *
      * @param  kp               String representing keypath
      *
@@ -153,7 +152,7 @@
                 config = kp || {};
                 kp = context;
             }
-            context = GLOBAL;
+            context = DEFAULT;
         }
 
         if(typeof kp !== 'string') new Error('keypath() : Invalid "keyPath" type ("'+kp+'")');
@@ -227,6 +226,15 @@
         PUBLIC API METHODS
      -----------------------------------------------------------------------
     */
+    Keypath.defaultContext = function( c ){
+        // getter
+        if( typeof c === 'undefined') return DEFAULT;
+        // setter
+        if( typeof c !== 'object' ) throw new Error('Keypath.defaultContext() : Context must be a Object');
+        else DEFAULT = c;
+        return true;
+    };
+
     Keypath.resolve = function( c , kp ){
         let a = {action : 'resolve'};
         return ( !kp ) ?
